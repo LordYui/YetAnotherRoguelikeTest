@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Component.cs" />
+    <Compile Include="Components\CameraComp.cs" />
     <Compile Include="Components\RenderComp.cs" />
     <Compile Include="Components\TransformComp.cs" />
     <Compile Include="Entry.cs" />

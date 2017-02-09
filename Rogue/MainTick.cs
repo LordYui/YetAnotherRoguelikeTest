@@ -18,7 +18,7 @@ namespace Rogue
 
         public MainTick()
         {
-            GameWindow = new ConsoleWindow(40, 80, "Test");
+            GameWindow = new ConsoleWindow(40, 120, "Test");
             GameRenderer = new Renderer(GameWindow);
             GameInput = new Input(GameWindow);
 

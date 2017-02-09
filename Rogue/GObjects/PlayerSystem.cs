@@ -18,6 +18,7 @@ namespace Rogue.GObjects
             PlayerGo = new GameObject("player_object");
 
             transformComp = PlayerGo.AddComp<TransformComp>();
+            PlayerGo.AddComp<CameraComp>();
             RenderComp rC = PlayerGo.AddComp<RenderComp>();
             rC.Char = '@';
 

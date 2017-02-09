@@ -47,7 +47,7 @@ namespace Rogue
         static InputKey()
         {
             InputKeys.Add(new InputKey(Key.W, 0, true));
-            InputKeys.Add(new InputKey(Key.Q, 0, true));
+            InputKeys.Add(new InputKey(Key.A, 0, true));
             InputKeys.Add(new InputKey(Key.S, 0, true));
             InputKeys.Add(new InputKey(Key.D, 0, true));
         }

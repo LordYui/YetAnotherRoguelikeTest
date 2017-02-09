@@ -1,4 +1,5 @@
 ﻿using Rogue.GObjects;
+using Rogue.Menu;
 using SunshineConsole;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace Rogue
         public Renderer GameRenderer;
         public Input GameInput;
 
+        public MenuSystem menuSystem;
         public PlayerSystem playerSystem;
 
         public MainTick()
@@ -23,6 +25,7 @@ namespace Rogue
             GameInput = new Input(GameWindow);
 
             playerSystem = new PlayerSystem();
+            menuSystem = new MenuSystem();
 
             Update();
         }

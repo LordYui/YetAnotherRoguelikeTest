@@ -41,11 +41,13 @@
     <Compile Include="Components\CameraComp.cs" />
     <Compile Include="Components\RenderComp.cs" />
     <Compile Include="Components\TransformComp.cs" />
+    <Compile Include="Components\UIRenderComp.cs" />
     <Compile Include="Entry.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GObjects\PlayerSystem.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="MainTick.cs" />
+    <Compile Include="Menu\MenuSystem.cs" />
     <Compile Include="Renderer.cs" />
   </ItemGroup>
   <ItemGroup>

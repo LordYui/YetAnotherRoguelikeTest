@@ -50,6 +50,9 @@ namespace Rogue
             InputKeys.Add(new InputKey(Key.A, 0, true));
             InputKeys.Add(new InputKey(Key.S, 0, true));
             InputKeys.Add(new InputKey(Key.D, 0, true));
+
+            InputKeys.Add(new InputKey(Key.KeypadPlus, 0, true));
+            InputKeys.Add(new InputKey(Key.KeypadMinus, 0, true));
         }
         #endregion
 

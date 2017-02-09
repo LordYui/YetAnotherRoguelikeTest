@@ -1,4 +1,5 @@
 ﻿using OpenTK;
+using OpenTK.Graphics;
 using OpenTK.Input;
 using Rogue.Components;
 using System;
@@ -20,7 +21,8 @@ namespace Rogue.GObjects
             transformComp = PlayerGo.AddComp<TransformComp>();
             PlayerGo.AddComp<CameraComp>();
             RenderComp rC = PlayerGo.AddComp<RenderComp>();
-            rC.Char = '@';
+            rC.Char = 'X';
+            rC.Foreground = Color4.Red;
 
             Input.OnKeyDown += Input_OnKeyDown;
         }

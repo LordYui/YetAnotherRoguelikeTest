@@ -33,6 +33,13 @@ namespace Rogue
                 cameraPos = cameraHolder.GetComp<TransformComp>().Position;
             }
 
+            RenderObjects();
+            RenderUi();
+
+        }
+
+        private void RenderObjects()
+        {
             GameObject[] renderableGo = GameObject.GameObjects.Where(g => g.HasComponent<RenderComp>()).ToArray();
             ClearScreen();
 
@@ -49,6 +56,42 @@ namespace Rogue
                 if (yPos < GAME_VIEW_HEIGHT && xPos < GAME_VIEW_WIDTH && yPos >= 0 && xPos >= 0)
                     gameWindow.Write(yPos, xPos, rC.Char, rC.Foreground, rC.Background);
             }
+
+        }
+
+        private void RenderUi()
+        {
+            UIRenderComp[] renderableUIGo = GameObject.GameObjects.Select(g => g.GetComp<UIRenderComp>()).ToArray();
+
+            foreach (UIRenderComp ui in renderableUIGo)
+            {
+                if (ui == null)
+                    continue;
+
+                for(int x = 0; x < ui.Size.X; x++)
+                {
+                    for(int y = 0; y < ui.Size.Y; y++)
+                    {
+                        int screenX = x + (int)ui.ScreenSpacePos.X;
+                        int screenY = y + (int)ui.ScreenSpacePos.Y;
+
+                        gameWindow.Write(screenY, screenX, ui.Buffer[x, y], Color4.White);
+                    }
+                }
+
+                //int i = 0;
+                //int j = 0;
+
+                //for (int x = (int)ui.ScreenSpacePos.X; x < ui.ScreenSpacePos.X + ui.Size.X; x++)
+                //{
+                //    for (int y = (int)ui.ScreenSpacePos.Y; y < ui.ScreenSpacePos.Y + ui.Size.Y; y++)
+                //    {
+                //        gameWindow.Write(x, y, ui.Buffer[i, j], Color4.White);
+                //        ++i;
+                //    }
+                //    ++j;
+                //}
+            }
         }
 
         private void ClearScreen()
@@ -57,9 +100,16 @@ namespace Rogue
             {
                 for (int y = 0; y < GAME_VIEW_HEIGHT; y++)
                 {
-                    gameWindow.Write(y, x, '#', Color4.White, Color4.Black);
+                    gameWindow.Write(y, x, '#', GetRandomColor(), Color4.Black);
                 }
             }
+        }
+
+        private Random diceRoller = new Random();
+        private Color4[] randomColors = new Color4[] { Color4.White, Color4.Tomato, Color4.Green, Color4.Honeydew };
+        private Color4 GetRandomColor()
+        {
+            return randomColors[diceRoller.Next(randomColors.Length)];
         }
     }
 }

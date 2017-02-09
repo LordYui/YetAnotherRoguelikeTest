@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenTK.Input;
 using SunshineConsole;
+using static Rogue.Input;
 
 namespace Rogue
 {
@@ -14,16 +15,18 @@ namespace Rogue
         public delegate void OnTickHandler();
         public static event OnTickHandler OnTick;
 
-        public delegate void OnKeyDownHandler(InputKey e);
+        public delegate void OnKeyDownHandler(InputKey e, ref InputFocusLock lo);
         public static event OnKeyDownHandler OnKeyDown;
         #endregion
 
         private ConsoleWindow gameWindow;
+        private InputFocusLock inputLock;
 
         public Input(ConsoleWindow cW)
         {
             gameWindow = cW;
             gameWindow.KeyDown += GameWindow_KeyDown;
+            inputLock = new InputFocusLock();
         }
 
         private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
@@ -33,9 +36,14 @@ namespace Rogue
             if (inK.Key == Key.Unknown)
                 return;
 
-            OnKeyDown?.Invoke(inK);
-            if (inK.ShouldTick)
-                OnTick?.Invoke();
+            if (inputLock.Locked)
+                inputLock.InputHandler?.Invoke(inK, ref inputLock);
+            else
+            {
+                OnKeyDown?.Invoke(inK, ref inputLock);
+                if (inK.ShouldTick)
+                    OnTick?.Invoke();
+            }
         }
     }
 
@@ -65,6 +73,27 @@ namespace Rogue
             Key = k;
             Modifier = mod;
             ShouldTick = sT;
+        }
+    }
+
+    class InputFocusLock
+    {
+        public bool Locked { get; private set; }
+        public OnKeyDownHandler InputHandler;
+
+        public void Lock(OnKeyDownHandler handler)
+        {
+            if (!Locked)
+            {
+                Locked = true;
+                InputHandler = handler;
+            }
+        }
+
+        public void Release()
+        {
+            Locked = false;
+            InputHandler = null;
         }
     }
 }

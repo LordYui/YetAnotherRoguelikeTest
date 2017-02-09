@@ -59,14 +59,18 @@ namespace Rogue.Components
         {
             foreach (char nC in line)
             {
-                Buffer[currentCol + (column * columnPadding), currentLine] = nC;
+                int col = currentCol + (column * columnPadding);
+                if (col >= size.X || currentLine >= size.Y)
+                    continue;
+                Buffer[col, currentLine] = nC;
                 ++currentCol;
             }
-            currentCol = 0;
         }
 
         public void ResetBuffer()
         {
+            currentCol = 0;
+            currentCol = 0;
             Buffer = new char[(int)size.X, (int)size.Y];
         }
     }

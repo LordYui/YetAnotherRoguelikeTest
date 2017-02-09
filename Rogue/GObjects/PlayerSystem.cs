@@ -28,7 +28,7 @@ namespace Rogue.GObjects
         }
 
         private TransformComp transformComp;
-        private void Input_OnKeyDown(InputKey e)
+        private void Input_OnKeyDown(InputKey e, ref InputFocusLock l)
         {
             switch (e.Key)
             {

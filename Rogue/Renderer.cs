@@ -78,19 +78,6 @@ namespace Rogue
                         gameWindow.Write(screenY, screenX, ui.Buffer[x, y], Color4.White);
                     }
                 }
-
-                //int i = 0;
-                //int j = 0;
-
-                //for (int x = (int)ui.ScreenSpacePos.X; x < ui.ScreenSpacePos.X + ui.Size.X; x++)
-                //{
-                //    for (int y = (int)ui.ScreenSpacePos.Y; y < ui.ScreenSpacePos.Y + ui.Size.Y; y++)
-                //    {
-                //        gameWindow.Write(x, y, ui.Buffer[i, j], Color4.White);
-                //        ++i;
-                //    }
-                //    ++j;
-                //}
             }
         }
 

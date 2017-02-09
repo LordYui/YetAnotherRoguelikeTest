@@ -48,7 +48,9 @@
     <Compile Include="GObjects\PlayerSystem.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="MainTick.cs" />
+    <Compile Include="Menu\IGameMenu.cs" />
     <Compile Include="Menu\MenuSystem.cs" />
+    <Compile Include="Menu\TestMenu.cs" />
     <Compile Include="Renderer.cs" />
   </ItemGroup>
   <ItemGroup>

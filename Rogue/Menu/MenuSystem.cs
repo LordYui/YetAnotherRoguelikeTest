@@ -15,18 +15,51 @@ namespace Rogue.Menu
 
         public MenuSystem()
         {
-            uiCmp = new GameObject("main_menu_object").AddComp<UIRenderComp>();
+            GameObject testMenu = new GameObject("test_menu");
+            testMenu.AddComp<UIRenderComp>();
+            MenuComp mC = testMenu.AddComp<MenuComp>();
+            mC.MenuKey = Key.Q;
+            mC.GameMenu = new TestMenu();
 
-            uiCmp.ScreenSpacePos = new Vector2(90, 0);
-            uiCmp.Size = new Vector2(30, 40);
+            Input.OnKeyDown += Input_OnKeyDown;
+        }
 
-            uiCmp.Columns = 1;
+        private GameObject[] gameMenues;
+        private GameObject openedMenu;
+        private InputFocusLock inputLock;
 
-            uiCmp.AppendLine("a - test  ");
-            uiCmp.AppendLine("b - test 2");
-            uiCmp.AddLine("");
-            uiCmp.AppendLine("c - test  ");
-            uiCmp.AppendLine("d - test 2");
+        private void Input_OnKeyDown(InputKey e, ref InputFocusLock lo)
+        {
+            inputLock = lo;
+            gameMenues = GameObject.GetByComponent<MenuComp>();
+
+            GameObject menuObj = gameMenues.Where(go => go.GetComp<MenuComp>().MenuKey == e.Key).FirstOrDefault();
+            if (menuObj == null)
+                return;
+            MenuComp selectedMenu = menuObj.GetComp<MenuComp>();
+            if (selectedMenu == null)
+                return;
+
+            openedMenu = menuObj;
+            openedMenuComp = selectedMenu;
+
+            selectedMenu.Opened = true;
+            selectedMenu.GameMenu.Open(menuObj.GetComp<UIRenderComp>());
+            selectedMenu.GameMenu.OnClosed += GameMenu_OnClosed;
+
+            inputLock.Lock(OnMenuKeyDown);
+        }
+
+        private void GameMenu_OnClosed()
+        {
+            openedMenuComp.Opened = false;
+            inputLock.Release();
+        }
+
+        private MenuComp openedMenuComp;
+        private void OnMenuKeyDown(InputKey e, ref InputFocusLock lo)
+        {
+            openedMenuComp.GameMenu.OnKeyDown(e);
         }
     }
 }

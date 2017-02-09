@@ -32,7 +32,7 @@ namespace Rogue
 
         private void Update()
         {
-            while (GameWindow.WindowUpdate()) ;
+            while (GameWindow.WindowUpdate() && GameRenderer.RenderUi()) ;
         }
     }
 }

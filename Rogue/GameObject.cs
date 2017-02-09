@@ -9,11 +9,13 @@ namespace Rogue
     class GameObject
     {
         public static List<GameObject> GameObjects = new List<GameObject>();
+        public string Name { get; private set; }
 
         public GameObject(string name = "")
         {
             if (name == "")
                 name = $"gameobject_{GameObjects.Count}";
+            Name = name;
             GameObjects.Add(this);
         }
 
@@ -43,6 +45,13 @@ namespace Rogue
         public bool HasComponent<T>() where T : Component
         {
             return GetComp<T>() != null;
+        }
+        #endregion
+
+        #region Static methods
+        public static GameObject[] GetByComponent<T>() where T : Component
+        {
+            return GameObjects.Where(go => go.HasComponent<T>()).ToArray();
         }
         #endregion
     }

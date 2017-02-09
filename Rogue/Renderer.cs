@@ -59,9 +59,11 @@ namespace Rogue
 
         }
 
-        private void RenderUi()
+        public bool RenderUi()
         {
-            UIRenderComp[] renderableUIGo = GameObject.GameObjects.Select(g => g.GetComp<UIRenderComp>()).ToArray();
+            UIRenderComp[] renderableUIGo = GameObject.GameObjects.Where(g => g.HasComponent<MenuComp>() && g.GetComp<MenuComp>().Opened).Select(g => g.GetComp<UIRenderComp>()).ToArray();
+
+            ClearUi();
 
             foreach (UIRenderComp ui in renderableUIGo)
             {
@@ -79,6 +81,8 @@ namespace Rogue
                     }
                 }
             }
+
+            return true;
         }
 
         private void ClearScreen()
@@ -88,6 +92,17 @@ namespace Rogue
                 for (int y = 0; y < GAME_VIEW_HEIGHT; y++)
                 {
                     gameWindow.Write(y, x, '#', GetRandomColor(), Color4.Black);
+                }
+            }
+        }
+
+        private void ClearUi()
+        {
+            for(int x = 90; x < 120; x++)
+            {
+                for(int y = 0; y < 40; y++)
+                {
+                    gameWindow.Write(y, x, ' ', Color4.Black);
                 }
             }
         }

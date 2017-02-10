@@ -42,6 +42,7 @@ namespace Rogue.Menu
 
             openedMenu = menuObj;
             openedMenuComp = selectedMenu;
+            openedMenu.GetComp<UIRenderComp>().ResetBuffer();
 
             selectedMenu.Opened = true;
             selectedMenu.GameMenu.Open(menuObj.GetComp<UIRenderComp>());

@@ -13,6 +13,8 @@ namespace Rogue.Components
         public Color4 Foreground;
         public Color4 Background;
 
+        public int Priority;
+
         public override void Start()
         {
             Char = '?';

@@ -45,9 +45,10 @@
     <Compile Include="Components\UIRenderComp.cs" />
     <Compile Include="Entry.cs" />
     <Compile Include="GameObject.cs" />
-    <Compile Include="GObjects\PlayerSystem.cs" />
+    <Compile Include="Player\PlayerSystem.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="MainTick.cs" />
+    <Compile Include="Map\MapSystem.cs" />
     <Compile Include="Menu\IGameMenu.cs" />
     <Compile Include="Menu\MenuSystem.cs" />
     <Compile Include="Menu\TestMenu.cs" />
@@ -64,6 +65,9 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GObjects\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -12,8 +12,8 @@ namespace Rogue
 {
     class Renderer
     {
-        private const int GAME_VIEW_WIDTH = 90;
-        private const int GAME_VIEW_HEIGHT = 30;
+        public const int GAME_VIEW_WIDTH = 90;
+        public const int GAME_VIEW_HEIGHT = 30;
 
         private ConsoleWindow gameWindow;
         private GameObject cameraHolder;
@@ -40,7 +40,8 @@ namespace Rogue
 
         private void RenderObjects()
         {
-            GameObject[] renderableGo = GameObject.GameObjects.Where(g => g.HasComponent<RenderComp>()).ToArray();
+            GameObject[] renderableGo = GameObject.GameObjects.Where(g => g.HasComponent<RenderComp>()).OrderBy(g => g.GetComp<RenderComp>().Priority).ToArray();
+            
             ClearScreen();
 
             cameraPos = cameraHolder.GetComp<TransformComp>().Position;
@@ -91,7 +92,7 @@ namespace Rogue
             {
                 for (int y = 0; y < GAME_VIEW_HEIGHT; y++)
                 {
-                    gameWindow.Write(y, x, '#', GetRandomColor(), Color4.Black);
+                    gameWindow.Write(y, x, ' ', Color4.Black);
                 }
             }
         }

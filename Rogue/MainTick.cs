@@ -1,4 +1,4 @@
-﻿using Rogue.GObjects;
+﻿using Rogue.Player;
 using Rogue.Menu;
 using SunshineConsole;
 using System;
@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Rogue.Map;
 
 namespace Rogue
 {
@@ -17,6 +18,7 @@ namespace Rogue
 
         public MenuSystem menuSystem;
         public PlayerSystem playerSystem;
+        public MapSystem mapSystem;
 
         public MainTick()
         {
@@ -26,7 +28,7 @@ namespace Rogue
 
             playerSystem = new PlayerSystem();
             menuSystem = new MenuSystem();
-
+            mapSystem = new MapSystem();
             Update();
         }
 

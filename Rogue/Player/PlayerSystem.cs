@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rogue.GObjects
+namespace Rogue.Player
 {
     class PlayerSystem
     {
@@ -23,6 +23,9 @@ namespace Rogue.GObjects
             RenderComp rC = PlayerGo.AddComp<RenderComp>();
             rC.Char = 'X';
             rC.Foreground = Color4.Red;
+            rC.Priority = 1;
+
+            transformComp.Position = new Vector2(45, 15);
 
             Input.OnKeyDown += Input_OnKeyDown;
         }

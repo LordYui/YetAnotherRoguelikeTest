@@ -9,15 +9,15 @@ namespace Rogue.Menu
 {
     abstract class IGameMenu
     {
-        public delegate void OnClosedHandled();
+        public delegate void OnClosedHandled(bool clearStack);
         public event OnClosedHandled OnClosed;
 
         public abstract void Open(UIRenderComp ui);
-        public void Close()
+        public void Close(bool clearStack = true)
         {
-            OnClosed?.Invoke();
+            OnClosed?.Invoke(clearStack);
         }
 
-        public virtual void OnKeyDown(InputKey e) { }
+        public virtual void OnKeyDown(InputKey e, InputFocusLock l = null) { }
     }
 }

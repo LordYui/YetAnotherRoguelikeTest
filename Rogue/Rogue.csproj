@@ -45,6 +45,8 @@
     <Compile Include="Components\UIRenderComp.cs" />
     <Compile Include="Entry.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="Menu\MainMenu.cs" />
+    <Compile Include="Menu\TestMenu2.cs" />
     <Compile Include="Player\PlayerSystem.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="MainTick.cs" />

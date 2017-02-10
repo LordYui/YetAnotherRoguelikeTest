@@ -31,6 +31,7 @@ namespace Rogue
             mapSystem = new MapSystem();
 
             GameRenderer.ForceTick();
+            GameRenderer.SetMenuSystem(menuSystem);
 
             Update();
         }

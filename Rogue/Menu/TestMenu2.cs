@@ -1,5 +1,4 @@
-﻿using OpenTK.Input;
-using Rogue.Components;
+﻿using Rogue.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rogue.Menu
 {
-    class TestMenu : IGameMenu
+    class TestMenu2 : IGameMenu
     {
         public override void Open(UIRenderComp ui)
         {
@@ -18,19 +17,14 @@ namespace Rogue.Menu
 
             ui.Columns = 2;
 
-            ui.AppendLine("a - Bleach");
-            ui.AppendLine("b - Memes", 1);
+            ui.AppendLine("c - Leafy");
+            ui.AppendLine("d - Idubbbz", 1);
         }
 
         public override void OnKeyDown(InputKey e, InputFocusLock l)
         {
-            Console.WriteLine($"Hit key in menu: {e.Key}");
-            if (e.Key == Key.Q)
-            {
-                l.Release();
-                MenuSystem.CreateMenuObject<TestMenu2>(Key.Unknown, "test_sub_menu_1").GetComp<MenuComp>().OpenMenu(l);
-            }
-                
+            if (e.Key == OpenTK.Input.Key.E)
+                Close();
         }
     }
 }

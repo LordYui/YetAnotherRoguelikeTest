@@ -15,8 +15,10 @@ namespace Rogue
         public delegate void OnTickHandler();
         public static event OnTickHandler OnTick;
 
-        public delegate void OnKeyDownHandler(InputKey e, ref InputFocusLock lo);
+        public delegate void OnKeyDownHandler(InputKey e, InputFocusLock lo);
         public static event OnKeyDownHandler OnKeyDown;
+
+        public delegate void OnFocusKeyDownHandler(InputKey e, InputFocusLock lo);
         #endregion
 
         private ConsoleWindow gameWindow;
@@ -37,10 +39,10 @@ namespace Rogue
                 return;
 
             if (inputLock.Locked)
-                inputLock.InputHandler?.Invoke(inK, ref inputLock);
+                inputLock.InputHandler?.Invoke(inK, inputLock);
             else
             {
-                OnKeyDown?.Invoke(inK, ref inputLock);
+                OnKeyDown?.Invoke(inK, inputLock);
                 if (inK.ShouldTick)
                     OnTick?.Invoke();
             }
@@ -60,6 +62,7 @@ namespace Rogue
             InputKeys.Add(new InputKey(Key.D, 0, true));
 
             InputKeys.Add(new InputKey(Key.Q));
+            InputKeys.Add(new InputKey(Key.E));
 
             InputKeys.Add(new InputKey(Key.KeypadPlus, 0, true));
             InputKeys.Add(new InputKey(Key.KeypadMinus, 0, true));
@@ -81,9 +84,9 @@ namespace Rogue
     class InputFocusLock
     {
         public bool Locked { get; private set; }
-        public OnKeyDownHandler InputHandler;
+        public OnFocusKeyDownHandler InputHandler;
 
-        public void Lock(OnKeyDownHandler handler)
+        public void Lock(OnFocusKeyDownHandler handler)
         {
             if (!Locked)
             {

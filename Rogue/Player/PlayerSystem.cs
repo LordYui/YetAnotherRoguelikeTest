@@ -31,7 +31,7 @@ namespace Rogue.Player
         }
 
         private TransformComp transformComp;
-        private void Input_OnKeyDown(InputKey e, ref InputFocusLock l)
+        private void Input_OnKeyDown(InputKey e, InputFocusLock l)
         {
             switch (e.Key)
             {

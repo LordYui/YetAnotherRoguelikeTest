@@ -15,7 +15,10 @@ namespace Rogue.Menu
             ui.ScreenSpacePos = new OpenTK.Vector2(90, 0);
             ui.Size = new OpenTK.Vector2(30, 90);
 
-            ui.AddLine("Test Menu");
+            ui.Columns = 2;
+
+            ui.AppendLine("a - Bleach");
+            ui.AppendLine("b - Memes", 1);
         }
 
         public override void OnKeyDown(InputKey e)

@@ -22,7 +22,7 @@ namespace Rogue.Player
             PlayerGo.AddComp<CameraComp>();
             RenderComp rC = PlayerGo.AddComp<RenderComp>();
             rC.Char = 'X';
-            rC.Foreground = Color4.Red;
+            rC.Foreground = Color4.OrangeRed;
             rC.Priority = 1;
 
             transformComp.Position = new Vector2(45, 15);

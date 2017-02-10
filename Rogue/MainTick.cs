@@ -29,6 +29,9 @@ namespace Rogue
             playerSystem = new PlayerSystem();
             menuSystem = new MenuSystem();
             mapSystem = new MapSystem();
+
+            GameRenderer.ForceTick();
+
             Update();
         }
 

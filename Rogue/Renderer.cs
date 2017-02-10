@@ -24,6 +24,11 @@ namespace Rogue
             Input.OnTick += Input_OnTick;
         }
 
+        public void ForceTick()
+        {
+            Input_OnTick();
+        }
+
         Vector2 cameraPos;
         private void Input_OnTick()
         {
@@ -34,7 +39,7 @@ namespace Rogue
             }
 
             RenderObjects();
-            RenderUi();
+            //RenderUi();
 
         }
 
@@ -92,7 +97,7 @@ namespace Rogue
             {
                 for (int y = 0; y < GAME_VIEW_HEIGHT; y++)
                 {
-                    gameWindow.Write(y, x, ' ', Color4.Black);
+                    gameWindow.Write(y, x, '.', Color4.ForestGreen);
                 }
             }
         }

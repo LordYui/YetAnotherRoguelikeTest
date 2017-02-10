@@ -15,6 +15,8 @@ namespace Rogue.Map
         {
             LoadMap();
         }
+
+        private Random diceRoll = new Random();
         public GameObject[,] LoadMap()
         {
             GameObject[,] retMap = new GameObject[Renderer.GAME_VIEW_WIDTH, Renderer.GAME_VIEW_HEIGHT];
@@ -25,8 +27,23 @@ namespace Rogue.Map
                 {
                     GameObject nG = new GameObject();
                     RenderComp rC = nG.AddComp<RenderComp>();
-                    rC.Char = '.';
                     rC.Foreground = Color4.ForestGreen;
+
+                    switch (diceRoll.Next(4))
+                    {
+                        case 0:
+                            rC.Char = '.';
+                            break;
+                        case 1:
+                            rC.Char = ';';
+                            break;
+                        case 2:
+                            rC.Char = ',';
+                            break;
+                        case 3:
+                            rC.Char = ':';
+                            break;
+                    }
 
                     TransformComp tC = nG.AddComp<TransformComp>();
                     tC.Position = new Vector2(x, y);

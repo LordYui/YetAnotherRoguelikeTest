@@ -11,8 +11,6 @@ namespace Rogue.Menu
 {
     class MenuSystem
     {
-        private UIRenderComp uiCmp;
-
         public MenuSystem()
         {
             GameObject testMenu = new GameObject("test_menu");

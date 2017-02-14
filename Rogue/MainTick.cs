@@ -1,12 +1,7 @@
-﻿using Rogue.Player;
+﻿using Rogue.Map;
 using Rogue.Menu;
+using Rogue.Player;
 using SunshineConsole;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Rogue.Map;
 
 namespace Rogue
 {
@@ -16,9 +11,9 @@ namespace Rogue
         public Renderer GameRenderer;
         public Input GameInput;
 
-        public MenuSystem menuSystem;
         public PlayerSystem playerSystem;
         public MapSystem mapSystem;
+        public UISystem uiSystem;
 
         public MainTick()
         {
@@ -27,11 +22,10 @@ namespace Rogue
             GameInput = new Input(GameWindow);
 
             playerSystem = new PlayerSystem();
-            menuSystem = new MenuSystem();
             mapSystem = new MapSystem();
+            uiSystem = new UISystem();
 
             GameRenderer.ForceTick();
-            GameRenderer.SetMenuSystem(menuSystem);
 
             Update();
         }

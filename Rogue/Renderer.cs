@@ -1,13 +1,9 @@
 ﻿using OpenTK;
 using OpenTK.Graphics;
 using Rogue.Components;
-using Rogue.Menu;
 using SunshineConsole;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rogue
 {
@@ -23,17 +19,6 @@ namespace Rogue
         {
             gameWindow = gW;
             Input.OnTick += Input_OnTick;
-        }
-
-        public void SetMenuSystem(MenuSystem mS)
-        {
-            mS.NewTopMenu += MS_NewTopMenu;
-            mS.OpenMainMenu();
-        }
-
-        private void MS_NewTopMenu(UIRenderComp menu)
-        {
-            topMenu = menu;
         }
 
         public void ForceTick()
@@ -58,7 +43,7 @@ namespace Rogue
         private void RenderObjects()
         {
             GameObject[] renderableGo = GameObject.GameObjects.Where(g => g.HasComponent<RenderComp>()).OrderBy(g => g.GetComp<RenderComp>().Priority).ToArray();
-            
+
             ClearScreen();
 
             cameraPos = cameraHolder.GetComp<TransformComp>().Position;
@@ -77,43 +62,20 @@ namespace Rogue
 
         }
 
-        private UIRenderComp topMenu;
         public bool RenderUi()
         {
-            if (topMenu == null)
-                return true;
+            CanvasComp[] canvases = GameObject.GameObjects.Where(g => g.HasComponent<CanvasComp>()).Select(g => g.GetComp<CanvasComp>()).ToArray();
 
-            for (int x = 0; x < topMenu.Size.X; x++)
+            foreach (CanvasComp canvas in canvases)
             {
-                for (int y = 0; y < topMenu.Size.Y; y++)
+                for (int y = 0; y < canvas.Buffer.GetLength(1); y++)
                 {
-                    int screenX = x + (int)topMenu.ScreenSpacePos.X;
-                    int screenY = y + (int)topMenu.ScreenSpacePos.Y;
-
-                    gameWindow.Write(screenY, screenX, topMenu.Buffer[x, y], Color4.White);
+                    for (int x = 0; x < canvas.Buffer.GetLength(0); x++)
+                    {
+                        gameWindow.Write(y + (int)canvas.ScreenSpacePos.Y, x + (int)canvas.ScreenSpacePos.X, canvas.Buffer[x, y], Color4.White);
+                    }
                 }
             }
-
-            //List<UIRenderComp> renderableUIGo = GameObject.GameObjects.Where(g => g.HasComponent<MenuComp>() && g.GetComp<MenuComp>().Opened).Select(g => g.GetComp<UIRenderComp>()).ToList();
-
-            //ClearUi();
-
-            //foreach (UIRenderComp ui in renderableUIGo)
-            //{
-            //    if (ui == null)
-            //        continue;
-
-            //    for(int x = 0; x < ui.Size.X; x++)
-            //    {
-            //        for(int y = 0; y < ui.Size.Y; y++)
-            //        {
-            //            int screenX = x + (int)ui.ScreenSpacePos.X;
-            //            int screenY = y + (int)ui.ScreenSpacePos.Y;
-
-            //            gameWindow.Write(screenY, screenX, ui.Buffer[x, y], Color4.White);
-            //        }
-            //    }
-            //}
 
             return true;
         }
@@ -131,9 +93,9 @@ namespace Rogue
 
         private void ClearUi()
         {
-            for(int x = 90; x < 120; x++)
+            for (int x = 90; x < 120; x++)
             {
-                for(int y = 0; y < 40; y++)
+                for (int y = 0; y < 40; y++)
                 {
                     gameWindow.Write(y, x, ' ', Color4.Black);
                 }

@@ -1,53 +1,39 @@
-﻿using OpenTK.Input;
-using Rogue.Menu;
-using System;
+﻿using Rogue.Menu;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Rogue.Components
 {
     class MenuComp : Component
     {
-        public delegate void OnMenuOpenedHandler(MenuComp mC);
-        public static event OnMenuOpenedHandler OnMenuOpened;
+        public delegate void OnRefreshedHandler(char[,] buffer);
+        public event OnRefreshedHandler OnRefreshed;
 
-        public delegate void OnMenuClosedHandler(MenuComp mC, bool clearStack = true);
-        public static event OnMenuClosedHandler OnMenuClosed;
+        public CanvasComp Canvas { get; private set; }
+        public List<Control> Controls { get; private set; }
+        public char[,] Buffer { get; private set; }
 
-        public bool Opened { get; private set; }
-        public Key MenuKey;
-        public IGameMenu GameMenu;
-
-        private InputFocusLock inputFocus;
-
-        public void OpenMenu(InputFocusLock inFoc)
+        public override void Start()
         {
-            inputFocus = inFoc;
-            GameMenu.OnClosed += GameMenu_OnClosed;
-            GameMenu?.Open(gameObject.GetComp<UIRenderComp>());
-            OnMenuOpened?.Invoke(this);
-
-            Opened = true;
-            inputFocus?.Lock(OnKeyDown);
+            Controls = new List<Control>();
+            Canvas = gameObject.GetComp<CanvasComp>();
+            Buffer = new char[Canvas.Buffer.GetLength(0), Canvas.Buffer.GetLength(1)];
         }
 
-        private void GameMenu_OnClosed(bool clearStack)
+        public void Refresh()
         {
-            CloseMenu(clearStack);
-        }
+            foreach (Control control in Controls)
+            {
+                control.Refresh();
 
-        private void OnKeyDown(InputKey e, InputFocusLock l)
-        {
-            GameMenu.OnKeyDown(e, l);
-        }
+                for (int y = 0; y < control.Buffer.GetLength(1); y++)
+                {
+                    for (int x = 0; x < control.Buffer.GetLength(0); x++)
+                    {
+                        Buffer[x + (int)control.Position.X, y + (int)control.Position.Y] = control.Buffer[x, y];
+                    }
+                }
+            }
 
-        public void CloseMenu(bool clear = true)
-        {
-            Opened = false;
-            inputFocus?.Release();
-            OnMenuClosed?.Invoke(this, clear);
+            OnRefreshed?.Invoke(Buffer);
         }
     }
 }

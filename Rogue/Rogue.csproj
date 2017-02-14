@@ -42,18 +42,16 @@
     <Compile Include="Components\MenuComp.cs" />
     <Compile Include="Components\RenderComp.cs" />
     <Compile Include="Components\TransformComp.cs" />
-    <Compile Include="Components\UIRenderComp.cs" />
+    <Compile Include="Components\CanvasComp.cs" />
     <Compile Include="Entry.cs" />
     <Compile Include="GameObject.cs" />
-    <Compile Include="Menu\MainMenu.cs" />
-    <Compile Include="Menu\TestMenu2.cs" />
+    <Compile Include="Menu\Control.cs" />
+    <Compile Include="Menu\Label.cs" />
+    <Compile Include="Menu\UISystem.cs" />
     <Compile Include="Player\PlayerSystem.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="MainTick.cs" />
     <Compile Include="Map\MapSystem.cs" />
-    <Compile Include="Menu\IGameMenu.cs" />
-    <Compile Include="Menu\MenuSystem.cs" />
-    <Compile Include="Menu\TestMenu.cs" />
     <Compile Include="Renderer.cs" />
   </ItemGroup>
   <ItemGroup>
